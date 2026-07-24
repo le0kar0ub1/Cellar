@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cellar"
+version = "0.1.0"
+description = "Enforce an aging period on AUR package upgrades"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "le0kar0ub1", email = "archlinux.navigator607@passmail.net" }]
+keywords = ["aur", "archlinux", "pacman", "security", "supply-chain"]
+classifiers = [
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+    "Topic :: System :: Software Distribution",
+]
+
+[project.urls]
+Homepage = "https://github.com/le0kar0ub1/Cellar"
+Issues = "https://github.com/le0kar0ub1/Cellar/issues"
+
+[project.scripts]
+cellar = "cellar.cli:main"
+
+[tool.setuptools]
+packages = ["cellar"]
