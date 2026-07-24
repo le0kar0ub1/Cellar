@@ -14,6 +14,6 @@ pkgbase = cellar
 	optdepends = paru: preferred AUR helper for cellar upgrade
 	optdepends = yay: alternative AUR helper for cellar upgrade
 	source = cellar-0.1.0.tar.gz::https://github.com/le0kar0ub1/Cellar/archive/refs/tags/v0.1.0.tar.gz
-	sha256sums = 0000000000000000000000000000000000000000000000000000000000000000
+	sha256sums = 8cd33d26466bd4bc436e881a623788866d2bc6b30802376a1ea1433465387435
 
 pkgname = cellar

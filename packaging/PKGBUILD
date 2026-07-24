@@ -11,9 +11,7 @@ optdepends=('paru: preferred AUR helper for cellar upgrade'
             'yay: alternative AUR helper for cellar upgrade')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-# Placeholder — replace with the real checksum at release time (see
-# packaging/RELEASING.md); run `updpkgsums` once the tag exists.
-sha256sums=('0000000000000000000000000000000000000000000000000000000000000000')
+sha256sums=('8cd33d26466bd4bc436e881a623788866d2bc6b30802376a1ea1433465387435')
 
 build() {
     cd "Cellar-$pkgver"
