@@ -52,6 +52,8 @@ def ignored_packages() -> frozenset[str]:
 
 def vercmp(a: str, b: str) -> int:
     """Compare two package versions with pacman's vercmp: <0, 0, >0."""
+    if a == b:
+        return 0  # identical strings are always equal; skip the subprocess
     out = _run(["vercmp", a, b])
     try:
         return int(out.strip())

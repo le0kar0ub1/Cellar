@@ -44,6 +44,14 @@ def main(argv: list[str] | None = None) -> int:
         return 130
 
 
+class _Parser(argparse.ArgumentParser):
+    """On usage errors, print the full help instead of a bare usage line."""
+
+    def error(self, message):
+        self.print_help(sys.stderr)
+        self.exit(2, f"\nerror: {message}\n")
+
+
 def build_parser() -> argparse.ArgumentParser:
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--config", metavar="PATH", help="config file to use")
@@ -54,7 +62,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--helper", choices=pacman.HELPERS, help="AUR helper to use (overrides config)"
     )
 
-    parser = argparse.ArgumentParser(
+    parser = _Parser(
         prog="cellar",
         description="Enforce an aging period on AUR package upgrades.",
     )

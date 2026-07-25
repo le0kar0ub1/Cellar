@@ -271,7 +271,9 @@ class CheckCommand(CliTest):
         self.assertIn("fail safe", err)
 
     def test_batching_splits_large_package_sets(self):
-        installed = {f"some-fairly-long-package-name-{i:03}": "1.0-1" for i in range(300)}
+        # Long names force multiple RPC requests without needing hundreds
+        # of packages (each stub call is a whole interpreter startup).
+        installed = {f"pkg-{'x' * 150}-{i:02}": "1.0-1" for i in range(40)}
         self.set_installed(installed)
         for name in installed:
             self.add_aur(name, "1.0-1", 30)
@@ -485,6 +487,30 @@ class StaleHoldTracking(CliTest):
         code, _, _ = self.run_cli("check")
         self.assertEqual(code, 0)
         self.assertEqual(json.loads(self.state_file.read_text()), {})
+
+
+class UsageErrors(CliTest):
+    def _run_expecting_exit(self, *argv):
+        stdout, stderr = io.StringIO(), io.StringIO()
+        with self.assertRaises(SystemExit) as caught, contextlib.redirect_stdout(
+            stdout
+        ), contextlib.redirect_stderr(stderr):
+            cli.main(list(argv))
+        return caught.exception.code, stderr.getvalue()
+
+    def test_no_command_prints_full_help(self):
+        code, err = self._run_expecting_exit()
+        self.assertEqual(code, 2)
+        self.assertIn("usage: cellar", err)
+        self.assertIn("upgrade", err)  # the full command list, not a bare usage line
+        self.assertIn("error:", err)
+
+    def test_missing_argument_prints_subcommand_help(self):
+        code, err = self._run_expecting_exit("status")
+        self.assertEqual(code, 2)
+        self.assertIn("usage: cellar status", err)
+        self.assertIn("--days", err)  # full option list for the subcommand
+        self.assertIn("error:", err)
 
 
 class EntryPoint(unittest.TestCase):

@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# makepkg / AUR release artifacts
+packaging/*.pkg.tar.zst
+packaging/*.tar.gz
+packaging/src/
+packaging/pkg/
+packaging/aur-cellar/

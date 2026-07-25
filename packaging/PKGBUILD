@@ -1,7 +1,7 @@
 # Maintainer: le0kar0ub1 <archlinux.navigator607@passmail.net>
 pkgname=cellar
-pkgver=0.1.0
-pkgrel=2
+pkgver=0.1.1
+pkgrel=1
 pkgdesc="Enforce an aging period on AUR package upgrades"
 arch=('any')
 url="https://github.com/le0kar0ub1/Cellar"
